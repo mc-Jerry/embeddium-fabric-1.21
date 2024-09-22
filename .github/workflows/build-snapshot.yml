@@ -2,7 +2,27 @@
 # This makes use of caching for faster builds and uploads the resulting artifacts
 name: build-snapshot
 
-on: [ workflow_run ]
+#on: [ workflow_dispatch ]
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 
 jobs:
   build:
